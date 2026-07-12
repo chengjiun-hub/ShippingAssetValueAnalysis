@@ -1,0 +1,8 @@
+[project]
+name = "shipping-asset-value-analysis"
+version = "0.1.0"
+description = "Shipping asset value early warning analysis using market indicators."
+requires-python = ">=3.10"
+
+[tool.setuptools]
+packages = ["src"]
