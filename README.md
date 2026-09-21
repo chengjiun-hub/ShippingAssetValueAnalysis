@@ -197,4 +197,8 @@ Public market data comes from Yahoo Finance. Vessel-value data comes from Clarks
 
 # Disclaimer
 
-This repository was built for educational and research purposes,
+This repository was built for educational and research purposes only. It does not constitute investment advice, credit advice, a formal vessel valuation, or a recommendation to enter into any financing or investment transaction.
+
+The analysis is based on historical data and simplified statistical models. Although reasonable efforts have been made to ensure accuracy, no guarantee is provided regarding the completeness, reliability, or continued validity of the data, assumptions, or results. Past relationships may not persist and should not be relied upon as the sole basis for lending, investment, or risk-management decisions.
+
+Certain vessel-value data used in this project is proprietary to Clarksons Research. The original data is not included in this repository and should only be accessed and used in accordance with the applicable licensing terms.
