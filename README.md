@@ -19,11 +19,11 @@ The goal isn't to predict vessel prices directly. Instead, it's to identify mark
 
 ## Key Findings
 
-WTI shows the strongest leading relationship among all variables tested — monthly WTI returns lead vessel returns by approximately three months (correlation 0.156, p-value 0.032). This relationship remains statistically significant after controlling for VIX in the regression model.
+WTI monthly returns have their largest observed correlation with vessel returns at a three-month lead (r = 0.156, unadjusted p = 0.032). This is a weak association, and three months was selected by scanning lags 0–12. A Bonferroni correction across the 13 WTI lags gives p ≈ 0.412, so the result is not significant after this conservative adjustment.
 
-VIX contains more limited predictive information. Higher market volatility is associated with weaker future vessel returns, but the relationship is relatively weak — VIX level reaches its strongest relationship at a two-month lead, but it's not statistically significant in the final regression model.
+VIX level has its strongest correlation at a two-month lead (r = -0.128, unadjusted p = 0.078). In the combined OLS model, WTI lag 3 has an unadjusted p-value of 0.042, but the lags were selected and tested on the same sample.
 
-Overall, public market data can supplement collateral monitoring, but not replace it. The regression model explains only a small portion of monthly vessel-return variation (R² = 3.8%), so public market indicators should be treated as an additional monitoring signal rather than a substitute for formal vessel valuation.
+With R² of only 3.8%, the regression is exploratory. These results suggest directions to investigate, not a validated early-warning or forecasting signal.
 
 ## Why This Matters
 
@@ -78,7 +78,7 @@ Regression Diagnostics
 Business Interpretation
 ```
 
-Each stage serves a different purpose. Exploratory analysis comes first, mainly to get a feel for how vessel values and market variables have behaved over time and whether any relationships stand out. From there, lead-lag analysis checks whether a market indicator consistently moves ahead of vessel prices — not just correlated, but leading. Regression is the last step, used to test whether those leading relationships still hold once other variables are controlled for.
+Each stage serves a different purpose. Exploratory analysis comes first, mainly to get a feel for how vessel values and market variables have behaved over time and whether any relationships stand out. Lead-lag analysis compares correlations across 0–12-month leads. Regression examines the chosen lags together, but testing them on the same sample is not independent validation.
 
 ---
 
@@ -163,7 +163,7 @@ Once the required datasets exist, each notebook can also be run on its own.
 
 # Limitations
 
-This is an exploratory study, not a forecasting system, and it comes with a few real limitations.
+This is an exploratory study, not a forecasting system. Multiple-lag selection, possible serial dependence, and the absence of out-of-sample validation limit the statistical conclusions.
 
 For one, the analysis only looks at a single vessel benchmark (Kamsarmax/Panamax 5-year-old secondhand prices), so the results may not carry over to other vessel classes or age segments. It also only considers two market indicators — VIX and WTI — when vessel values are actually driven by a lot more than that, including freight rates, fleet supply, interest rates, and global trade activity. And the regression itself only explains a small slice of monthly vessel-return variation, which is a reminder that these public indicators are just one piece of a much bigger picture, not the whole story.
 
