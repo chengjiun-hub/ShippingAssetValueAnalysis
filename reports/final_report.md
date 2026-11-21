@@ -2,11 +2,9 @@
 
 ## Executive Summary
 
-This project asks whether market fear (VIX) and oil-price movements (WTI returns) can serve as early warning signals for future vessel-value changes.
+This project explores whether VIX and WTI precede movements in vessel values using monthly data from March 2010 to March 2026.
 
-The analysis covers monthly data from March 2010 to March 2026, using the Clarksons Kamsarmax/Panamax 5-year-old secondhand price series as the vessel-value benchmark, alongside public VIX and WTI data from Yahoo Finance.
-
-Same-month relationships between these market indicators and vessel returns are generally weak. But WTI returns lagged by three months show a statistically significant positive relationship with vessel returns, and that relationship holds up even after controlling for VIX level. The model's overall explanatory power is modest, so WTI is best treated as a supplementary early warning signal rather than a standalone forecasting tool.
+The strongest observed WTI correlation occurs at a three-month lead (r = 0.156, unadjusted p = 0.032), but this is a weak association selected from 13 possible lags. A Bonferroni correction gives p ≈ 0.412. The combined OLS regression explains 3.8% of vessel-return variation. The findings are exploratory and do not establish a reliable early-warning indicator.
 
 ---
 
@@ -58,13 +56,13 @@ Contemporaneous return correlations are weak: ship return versus VIX return sits
 
 ## 6. Lead-Lag Analysis
 
-Correlations are calculated across lags of zero to twelve months, where a lag of three means the indicator is observed three months before the corresponding vessel return.
+Correlations were calculated at leads of 0–12 months for VIX level, VIX return, and WTI return, giving 39 comparisons. Reported p-values are unadjusted and lag selection was data-driven.
 
-**WTI return** reaches its strongest relationship at a three-month lead: correlation 0.156, p = 0.032 — statistically significant, and early evidence that oil-price moves might carry information about vessel values roughly a quarter ahead.
+- WTI return: lag 3, r = 0.156, raw p = 0.032 (n = 190); Bonferroni-adjusted p ≈ 0.412 across its 13 lags.
+- VIX level: lag 2, r = -0.128, raw p = 0.078.
+- VIX return: lag 7, r = -0.093, raw p = 0.207.
 
-**VIX level**'s strongest (negative) relationship comes at a two-month lead: correlation -0.128, p = 0.078. That's not significant at the 5% level, only marginal at 10%, so it's carried forward as a candidate control variable rather than treated as confirmed.
-
-**VIX return** doesn't show a significant relationship at any tested lag and is dropped from the regression.
+These are exploratory associations, not validated predictions.
 
 ---
 
@@ -76,7 +74,7 @@ The **WTI-only model** finds WTI return (lag 3) significant, with a coefficient 
 
 The **VIX-only model** finds VIX level (lag 2) only marginally significant, coefficient roughly -0.0009 (p = 0.080), R² of 1.6% (adjusted 1.1%). The negative sign is directionally consistent with the idea that elevated fear precedes weaker vessel returns, but the statistical support is thin.
 
-In the **combined model**, WTI return (lag 3) stays significant — coefficient 0.0589, p = 0.042 — while VIX level (lag 2) does not (coefficient roughly -0.0008, p = 0.108). The model overall is significant (F-test p = 0.027), with R² of 3.8% (adjusted 2.7%). WTI holding up after VIX is added suggests it's contributing information beyond what VIX alone captures.
+In the **combined model**, WTI return (lag 3) has coefficient 0.0589 (unadjusted p = 0.042) — while VIX level (lag 2) does not (coefficient roughly -0.0008, p = 0.108). The nominal model F-test p-value is 0.027, with R² of 3.8% (adjusted 2.7%). These p-values do not account for lag selection on the same sample or residual autocorrelation.
 
 ---
 
@@ -92,9 +90,7 @@ The Durbin-Watson statistic comes out around 1.40, pointing to mild positive aut
 
 ## 9. Key Findings
 
-Vessel values move through substantial long-term cycles, which is itself a meaningful source of collateral risk for lenders. Same-month relationships between VIX, WTI, and vessel returns are weak, but WTI lagged three months shows a statistically significant positive relationship with vessel returns (r = 0.156, p = 0.032), and that relationship survives controlling for VIX (β = 0.059, p = 0.042).
-
-VIX level lagged two months only offers marginal evidence on its own and doesn't hold up in the combined model. Overall the model's explanatory power stays modest (R² = 3.8%), which is why WTI reads as a supplementary monitoring signal rather than something to forecast off of directly.
+WTI has a weak positive association with vessel returns at the selected three-month lag (r = 0.156), but the raw p-value does not survive a conservative adjustment for the lag search. The combined regression gives WTI a coefficient of 0.059 (raw p = 0.042), with R² = 3.8%. The regression uses the same sample as the lag selection and has positive residual autocorrelation (Durbin–Watson ≈ 1.40), so these nominal p-values are not confirmatory evidence.
 
 ---
 
@@ -112,7 +108,7 @@ This is a single-benchmark study — the Kamsarmax/Panamax 5-year-old secondhand
 
 The predictor set is also narrow: just VIX and WTI, leaving out freight rates, Baltic Dry Index components, orderbook and fleet-growth data, interest rates, steel prices, trade volumes, and scrapping activity — all of which plausibly matter more directly.
 
-Explanatory power is modest (R² ≈ 3.8%), enough to support a monitoring relationship but not a high-accuracy forecast. Residuals are non-normal with mild autocorrelation, which future work could address with Newey-West errors, autoregressive models, rolling-window regression, out-of-sample testing, or nonlinear approaches.
+Explanatory power is modest (R² ≈ 3.8%), and the lag search and residual autocorrelation warrant caution in interpreting p-values. Residuals are non-normal with mild autocorrelation, which future work could address with Newey-West errors, autoregressive models, rolling-window regression, out-of-sample testing, or nonlinear approaches.
 
 Finally, none of this establishes causality — WTI is more likely a proxy for broader global economic and commodity-market conditions than a direct driver of vessel prices.
 
@@ -120,9 +116,7 @@ Finally, none of this establishes causality — WTI is more likely a proxy for b
 
 ## 12. Conclusion
 
-This project set out to test whether VIX and WTI can provide early warning signals for vessel-value movements. Same-month relationships turn out to be weak, but WTI returns lagged three months show a statistically significant positive relationship with vessel returns that survives controlling for VIX — even if the model's overall explanatory power remains modest.
-
-That's enough to support using lagged WTI returns as a supplementary early warning input within a broader ship-finance monitoring framework — not as a standalone forecasting model or a credit-decision rule on its own.
+The data suggest a weak association between WTI returns and vessel returns three months later, but the lead time was selected after testing multiple alternatives. Low explanatory power, residual autocorrelation, and the absence of out-of-sample validation prevent treating this as a dependable early-warning signal.
 
 ---
 
