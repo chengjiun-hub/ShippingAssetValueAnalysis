@@ -214,11 +214,11 @@ def plot_lead_lag(
     display_name = format_feature_name(feature_name)
 
     if is_significant:
-        point_label = "Statistically Significant Best Lag"
+        point_label = "Selected lag (raw p < 0.05)"
         point_marker = "*"
         point_size = 240
     else:
-        point_label = "Strongest Lag (Not Significant)"
+        point_label = "Selected lag (raw p >= 0.05)"
         point_marker = "D"
         point_size = 100
 
@@ -427,7 +427,7 @@ def plot_combined_lead_lag(
                 "WTI Return\n"
                 f"Lag {int(wti_best['lag_months'])}, "
                 f"r = {wti_best['correlation']:.3f}\n"
-                f"p = {wti_best['p_value']:.3f}*"
+                f"raw p = {wti_best['p_value']:.3f}"
             ),
             xy=(
                 wti_best["lag_months"],
@@ -466,7 +466,7 @@ def plot_combined_lead_lag(
     ax.text(
         0.01,
         0.02,
-        "* p < 0.05",
+        "p-values unadjusted for lag search",
         transform=ax.transAxes,
         fontsize=9,
     )
